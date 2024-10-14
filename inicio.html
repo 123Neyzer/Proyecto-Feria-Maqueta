@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Reclutamiento Universitario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px 0;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-align: center;
+        }
+        .main-content {
+            display: flex;
+            margin-top: 20px;
+            position: relative;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            left: -250px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: left 0.3s ease-out;
+            z-index: 10;
+        }
+        .sidebar.expanded {
+            left: 0;
+        }
+        .sidebar-toggle {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            right: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 0 8px 8px 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .filters {
+            padding: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            width: 100%;
+        }
+        .tabs {
+            display: flex;
+            background-color: #fff;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+        }
+        .tab {
+            padding: 1rem 2rem;
+            background-color: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .tab.active {
+            background-color: #fff;
+            border-bottom: 3px solid #007bff;
+        }
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .student-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            background-color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .student-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .student-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            object-fit: cover;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>       
+
+    <header>
+            <div class="container">
+            <h1>Plataforma de Reclutamiento Universitario</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <aside class="sidebar">
+                <button class="sidebar-toggle" aria-label="Mostrar filtros">▶</button>
+                <div class="filters">
+                    <select id="carrera">
+                        <option value="todas">Todas las carreras</option>
+                        <option value="Ingeniería Informática">Ingeniería Informática</option>
+                        <option value="Administración de Empresas">Administración de Empresas</option>
+                        <option value="Psicología">Psicología</option>
+                        <option value="Psicología">Enfermeria</option>
+                        <option value="Psicología">Ingles</option>
+
+
+
+                    </select>
+                    <select id="ano">
+                        <option value="todos">Todos los años</option>
+                        <option value="1">1er año</option>
+                        <option value="2">2do año</option>
+                        <option value="3">3er año</option>
+                        <option value="4">4to año</option>
+                        <option value="5">5to año</option>
+                    </select>
+                </div>
+            </aside>
+
+            <main class="content">
+                <div class="tabs">
+                    <button class="tab active" id="tab-activos">Estudiantes Activos</button>
+                    <button class="tab" id="tab-egresados">Egresados</button>
+                </div>
+                
+                <div class="students-grid" id="estudiantes-activos">
+                    <div class="student-card">
+                        <img src="/src/image/perfil1.png" alt="Ana García" class="student-avatar">
+                        <h3>Ana García</h3>
+                        <p>Ingeniería Informática - 3º año</p>
+                        <a href="perfil.html" class="btn">Ver perfil</a>
+                    </div>
+                    <div class="student-card">
+                        <img src="/src/image/perfil5.png" alt="Carlos Rodríguez" class="student-avatar">
+                        <h3>Carlos Rodríguez</h3>
+                        <p>Administración de Empresas - 4º año</p>
+                        <a href="#" class="btn">Ver perfil</a>
+                    </div>
+                    <div class="student-card">
+                        <img src="/src/image/perfil3.png" alt="Laura Martínez" class="student-avatar">
+                        <h3>Laura Martínez</h3>
+                        <p>Psicología - 2º año</p>
+                        <a href="#" class="btn">Ver perfil</a>
+                    </div>
+                    <div class="student-card">
+                        <img src="/src/image/perfil4.png" alt="Diego Sánchez" class="student-avatar">
+                        <h3>Diego Sánchez</h3>
+                        <p>Ingeniería Informática - 5º año</p>
+                        <a href="#" class="btn">Ver perfil</a>
+                    </div>
+                </div>
+                
+                <div class="students-grid" id="estudiantes-egresados" style="display: none;">
+                    <div class="student-card">
+                        <img src="/src/image/perfil2.png" alt="María López" class="student-avatar">
+                        <h3>María López</h3>
+                        <p>Psicología - Egresado</p>
+                        <a href="#" class="btn">Ver perfil</a>
+                    </div>
+                    <div class="student-card">
+                        <img src="/src/image/perfil6.png" alt="Javier Fernández" class="student-avatar">
+                        <h3>Javier Fernández</h3>
+                        <p>Ingeniería Informática - Egresado</p>
+                        <a href="#" class="btn">Ver perfil</a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad para cambiar entre pestañas
+        document.getElementById('tab-activos').addEventListener('click', function() {
+            this.classList.add('active');
+            document.getElementById('tab-egresados').classList.remove('active');
+            document.getElementById('estudiantes-activos').style.display = 'grid';
+            document.getElementById('estudiantes-egresados').style.display = 'none';
+        });
+
+        document.getElementById('tab-egresados').addEventListener('click', function() {
+            this.classList.add('active');
+            document.getElementById('tab-activos').classList.remove('active');
+            document.getElementById('estudiantes-egresados').style.display = 'grid';
+            document.getElementById('estudiantes-activos').style.display = 'none';
+        });
+
+        // Funcionalidad para desplegar/retraer la barra lateral
+        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('expanded');
+            
+            if (sidebar.classList.contains('expanded')) {
+                this.textContent = '◀';
+                this.setAttribute('aria-label', 'Ocultar filtros');
+            } else {
+                this.textContent = '▶';
+                this.setAttribute('aria-label', 'Mostrar filtros');
+            }
+        });
+
+        // Nota: La funcionalidad de filtrado requeriría JavaScript más complejo
+        // y probablemente una base de datos en el lado del servidor.
+    </script>
+</body>
+</html>
